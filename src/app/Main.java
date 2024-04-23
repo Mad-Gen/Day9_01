@@ -38,22 +38,21 @@ public class Main {
     
     // 情報を更新
     for(Transportation t : transWays) {
-      // ポリモーフィズムの考え方を利用することによって、交通手段ごとにどの情報を検索すべきかは異なっていますが
-      // たった一つのメソッドを呼び出すだけで良くなります。クラスごとにIFによる条件分岐を書かなくてもよくなりました!
+      // ポリモーフィズムの考え方を利用することによって、交通手段ごとにどのように情報収集・更新するかが異なっていても
+      // たった一つのメソッドを呼び出すだけで良くなります。ifによる条件分岐やキャストを書かなくてもよくなりました!
       t.updateInfomation(); 
     }
     
     // 最新の情報を出力
     for(Transportation t : transWays) {
-      // ポリモーフィズムの考え方を利用することによって、交通手段ごとにどの情報を検索すべきかは異なっていますが
-      // たった一つのメソッドを呼び出すだけで良くなります。クラスごとにIFによる条件分岐を書かなくてもよくなりました!
       t.showInformation();
     }
     
+    
     // *****************************************
     // ★演習
-    // Mini  : Eclipseで上記のコードを実行しどのようなコードになっているか、ディスカッションしてみましょう。
-    //       : 各グループでどのメソッドがオーバーライドされているかやどんな実装になっているかなどをまとめて、Slackにポストしてください。
+    // Mini  : Eclipseで上記のコードを実行しどのようなコードになっているか、各グループで予想を立ててみましょう。
+    //       : 各グループでどのメソッドがオーバーライドされているかやどんな実装になっているかなどを簡単にまとめてSlackにポストしていただけますか？
     // Full  : Walk.java, Train.java を参考に Plane.java, Taxi.java, Bycicle.java を作成してみましょう。
     //       : こちらもグループごとにSlackへポストしてください。
     //
@@ -82,7 +81,7 @@ public class Main {
     //   異なるパッケージには同じ名前のクラスを作成できますが、きちんと呼び分ける必要があります。
     
     // 抽象クラスとして定義すると、インスタンス化することはできません!!
-    transportation2.Transportation absTp1 = new transportation2.Transportation("東京", "盛岡", now, 700.0); // エラー!!
+    //transportation2.Transportation absTp1 = new transportation2.Transportation("東京", "盛岡", now, 700.0); // エラー!!
     transportation2.Transportation absTp2 = new transportation2.Train("東京", "盛岡", now, 700.0); // こちらはOK!
     
     
@@ -94,11 +93,11 @@ public class Main {
     
     // *****************************************
     // ★演習
-    // Mini  : Catクラスを抽象クラスとして宣言し、speak()を抽象メソッドにしてください。
-    //       : Lion.java, Tiger.java でCatクラスを継承し、abstract メソッドを実装してみましょう。
-    //       : ポリモーフィズムの形で変数宣言をして、きちんと動作するかをテストしてみましょう。
+    // Mini  : transportation2 パッケージのクラスを参考に transportation1 パッケージの Transportation.java　を抽象クラス化してください。
+    //       : 抽象クラス化した Transportation.java を子クラスで継承します。
+    //       : App.java を新しく App パッケージに作成し、エントリーポイントを書きます。その中で Transportationの継承クラスを呼び出して実行してみましょう。
     //       
-    // Full  : transportation2 パッケージのクラスを参考に transportation1 パッケージの Transportation.java　を抽象クラス化してください。
+    // Full  : 
     //       : transportation1 パッケージのクラスを自由に機能拡張し、最新の経路状況が確認できるアプリのコンセプトモデルを作ってみましょう。
     //       : 可能であれば実際に何らかのWEBAPIを呼び出して情報を取得し、コンソールに出力することにも挑戦してみてください。
     //       : 野崎さんがSlackに投稿した課題を参考にできるかもしれません。
@@ -112,7 +111,7 @@ public class Main {
     // 私たちがよく使うインターフェースの一つに、「USB」や「コンセント」があります。
     //
     // 「USB」は「コンセント」などの特徴は...
-    //   「受け口」と「プラグ」の形がピッタリあっていないと使えない
+    //   「差し込み口」と「プラグ」の形がピッタリあっていないと使えない
     // ことです。
     // 
     // 例えばUSB-MicroB と USB-C はインターフェースが異なるので刺さりません。
@@ -123,16 +122,13 @@ public class Main {
     // インターフェースを実装したクラスは、そのメソッドを必ず実装(やることはオーバーライドと同じです)する必要があります。
     transportation2.Walk absTp3 = new transportation2.Walk(absTp2, "盛岡", 600.0); 
     
-    // Javaの「インターフェース」を使うと、「インターフェースの型」を受け口、代入するインスタンスを「差し込む側」としてつかって以下のようにできます。
+    // Javaの「インターフェース」を使うと、「インターフェースの型」を差し込み口、代入するインスタンスを「プラグ」としてつかって以下のようにできます。
     // 図をご覧ください
     Recommend recommend = absTp3;
     recommend.showRecommend();
     
-    if(absTp1 instanceof Recommend) {
-      System.out.println("absTp1 は Recommend インターフェースを実装しています。");
-    }else {
-      System.out.println("absTp1 は Recommend インターフェースを実装していません");
-    }
+    //
+    System.out.println();
     if(absTp3 instanceof Recommend) {
       System.out.println("absTp3 は Recommend インターフェースを実装しています。");
     }else {
